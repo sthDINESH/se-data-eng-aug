@@ -25,6 +25,7 @@
 - **Scalable**: When your app grows and needs to store more data, you can easily add more computers to handle it
 - **Built-in Backup**: MongoDB automatically makes copies of your data so you don't lose it if something breaks
 - **Keep Related Data Together**: You can store information about a single object (like a user and their address) in one place instead of splitting it across multiple tables
+- **Open source**
 
 ### Cons
 - **Uses More Computer Memory**: MongoDB stores data in a format that takes up more RAM than traditional databases
@@ -33,6 +34,7 @@
 - **Safety Concerns**: If you update multiple pieces of data at once, MongoDB doesn't guarantee they all succeed or all fail together (this has improved in newer versions)
 - **Takes Up More Space**: Because of how MongoDB stores data, it uses more disk storage compared to traditional databases
 - **Different Way of Thinking**: If you know SQL already, MongoDB works differently and requires learning new concepts
+- **Bad at transactions**
 
 
 ## Common use cases
@@ -47,6 +49,10 @@
 - **Chat & Messaging**: Real-time messaging applications that need fast writes and reads
 - **Game Development**: Storing player data, game states, and inventory items with flexible properties
 - **Log & Event Tracking**: Recording application logs and user events for analysis and debugging
+- **JSON+XML data**: Suitable for data from APIs
+- Data that doesn't suit tables and when you need more flexibility
+- **Media+Content**
+- **Geolocation/geospatial data**
 
 ## Comparison to SQL
 - **SQL Table** = MongoDB Collection
