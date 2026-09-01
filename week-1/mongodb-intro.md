@@ -173,7 +173,7 @@ A **collection** is a group of related documents stored together in a database. 
 - **`comments`** - for storing user comments
 - **`reviews`** - for storing product reviews
 
-![MongoDB New Database](../images/mongodb-new-collection.png)
+![MongoDB New Collection](../images/mongodb-new-collection.png)
 
 
 ## Adding a document and adding multiple documents
@@ -237,3 +237,125 @@ A **document** is a single record of data in MongoDB, similar to a row in a SQL 
 - **Validation**: Check that your JSON format is correct before inserting — Compass will show errors if there are issues
 
 ![MongoDB New Document](../images/mongodb-new-document.png)
+
+## Core Concepts
+
+### 1. Validation
+
+**Validation** is a set of rules that MongoDB enforces when you insert or update documents in a collection. It helps ensure that your data is consistent and correct, even though MongoDB has a flexible schema.
+
+#### Why Use Validation?
+- **Data Quality**: Ensures documents have required fields and correct data types
+- **Consistency**: Prevents invalid data from being added to your collection
+- **Error Prevention**: Catches mistakes early before bad data gets stored
+- **Business Rules**: Enforces specific requirements for your application
+
+#### How Validation Works
+- You define a schema with rules for each field (required, data type, constraints)
+- When you try to insert or update a document, MongoDB checks it against these rules
+- If the document doesn't meet the requirements, MongoDB rejects it and shows an error message
+- Only valid documents are allowed into the collection
+
+#### Example Validation Rules
+- **Required Fields**: A user must have a `name` and `email`
+- **Data Types**: `age` must be a number, not a string
+- **String Length**: `email` must be at least 5 characters long
+- **Number Range**: `age` must be between 0 and 150
+- **Enum Values**: `status` can only be "active", "inactive", or "pending"
+
+#### Setting Up Validation in MongoDB Compass
+
+**Step 1: Open Your Collection**
+- Navigate to your collection in Compass
+- Click on the **Validation** tab at the top
+
+**Step 2: Enter Validation Rules**
+- Click **Add Validation Rule** or **Edit JSON Schema**
+- Write your validation rules in JSON format
+- Example validation schema:
+  ```json
+  {
+    $jsonSchema: {
+      bsonType: "object",
+      required: ["name", "email"],
+      properties: {
+        name: {
+          bsonType: "string",
+          description: "Student name (required, string)"
+        },
+        email: {
+          bsonType: "string",
+          pattern: "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
+          description: "Valid email address (required, string)"
+        },
+        age: {
+          bsonType: "int",
+          minimum: 0,
+          maximum: 150,
+          description: "Student age (optional, must be 0-150)"
+        },
+        studentId: {
+          bsonType: "string",
+          description: "Unique student ID (required, string)"
+        }
+      }
+    }
+  }
+  ```
+
+**Step 3: Save Validation Rules**
+- Click **Update** or **Save** to apply the validation
+- All new documents must now follow these rules
+
+#### Testing Validation: Invalid Entry
+When you try to insert a document that doesn't meet the validation rules, MongoDB rejects it.
+
+**Invalid Example - Missing Required Fields:**
+```json
+{
+  "name": "Alice Smith"
+}
+```
+
+**Output/Error:**
+![MongoDB Validation fail](../images/mongodb-validation-fail.png)
+![MongoDB Validation error details](../images/mongodb-validation-fail-details.png)
+
+
+#### Testing Validation: Valid Entry
+When you insert a document that meets all validation rules, MongoDB accepts it.
+
+**Valid Example:**
+```json
+{
+  "name": "Carol Williams",
+  "email": "carol@example.com",
+  "age": 22,
+  "studentId": "S001"
+}
+```
+
+**Output/Success:**
+```
+Document inserted successfully with ID: ObjectId("...")
+```
+
+**Another Valid Example (age is optional):**
+```json
+{
+  "name": "David Brown",
+  "email": "david@example.com",
+  "studentId": "S002"
+}
+```
+
+**Output/Success:**
+```
+Document inserted successfully with ID: ObjectId("...")
+```
+
+#### Key Takeaways
+- **Validation prevents bad data**: Documents that don't match your rules are rejected
+- **Clear error messages**: MongoDB tells you exactly what's wrong
+- **Flexible fields**: Fields marked as optional (not in "required") can be omitted
+- **Validation can be updated**: You can modify rules anytime, but existing documents aren't checked until they're updated
