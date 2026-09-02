@@ -29,11 +29,11 @@ def get_db(uri, database):
         else:
             print(f"✗ Database '{database}' not found.")
             print(f"Available databases: {available_dbs}")
-            return None
+            exit(1)
 
     except Exception as e:
         print(f"✗ Error connecting to MongoDB: {e}")
-        return None
+        exit(1)
 
 
 def get_collection(db, collection):
