@@ -9,7 +9,7 @@ def get_db(uri, database):
         database (str): Name of the database to connect to
     Returns:
         Database: MongoDB database object if connection successful,
-        None otherwise
+        exits otherwise
     Raises:
         Prints error messages to console on connection failure
     """
@@ -43,7 +43,7 @@ def get_collection(db, collection):
         db: MongoDB database object
         collection (str): Name of the collection to retrieve
     Returns:
-        Collection: MongoDB collection object if it exists, None otherwise
+        Collection: MongoDB collection object if it exists, exits otherwise
     """
     try:
         # Check if collection exists
@@ -54,7 +54,7 @@ def get_collection(db, collection):
         else:
             print(f"✗ Collection '{collection}' not found.")
             print(f"Available collections: {available_collections}")
-            return None
+            exit(1)
     except Exception as e:
         print(f"✗ Error retrieving collection: {e}")
-        return None
+        exit(1)
