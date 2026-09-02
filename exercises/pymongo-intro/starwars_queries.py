@@ -51,3 +51,50 @@ result = characters.find(
 print('Humans with homeworld of Alderaan:')
 for character in result:
     print(character)
+
+# Find the average height of all female characters
+pipeline = [
+    {
+        '$match': {
+            'gender': 'female',
+            'height': {'$type': 'int'}
+        }
+    },
+    {
+        '$group': {
+            '_id': None,
+            'average_height': {'$avg': '$height'}
+        }
+    }
+]
+result = list(characters.aggregate(pipeline))
+print('Average height of all female characters:')
+for entry in result:
+    print(entry)
+
+
+# 7. Find the tallest character
+pipeline = [
+    {
+        '$match': {
+            'height': {'$type': 'int'}
+        }
+    },
+    {
+        '$sort': {'height': -1}
+    },
+    {
+        '$project': {
+            '_id': False,
+            'name': True,
+            'height': True,
+        }
+    },
+    {
+        '$limit': 1
+    }
+]
+result = list(characters.aggregate(pipeline))
+print('Tallest character:')
+for entry in result:
+    print(entry)
