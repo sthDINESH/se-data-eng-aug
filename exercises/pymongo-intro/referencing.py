@@ -13,7 +13,7 @@ def get_json(endpoint):
         print("Request timed out")
     except requests.exceptions.RequestException as e:
         print(f"Error: {e}")
-    exit(1) 
+    exit(1)
 
 
 def get_pilot_name(endpoint):
@@ -50,12 +50,10 @@ for starship in starships:
             }
         )['_id']
         pilot_ids.append(pilot_obj_id)
-    
+
     # Replace pilots list with ObjectIDs
     starship['pilots'] = pilot_ids
     print('Updated starship pilots:', starship['name'], starship['pilots'])
-
-print(starships[0])
 
 # add transformed data to mongo database
 # -------------------------------------------------------
