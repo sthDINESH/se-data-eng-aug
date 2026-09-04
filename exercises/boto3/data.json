@@ -1,0 +1,24 @@
+{
+  "items": [
+    {
+      "id": 1,
+      "name": "demo",
+      "active": true
+    },
+    {
+      "id": 2,
+      "name": "sample",
+      "active": true
+    },
+    {
+      "id": 3,
+      "name": "archived",
+      "active": false
+    },
+    {
+      "id": 4,
+      "name": "test",
+      "active": true
+    }
+  ]
+}
