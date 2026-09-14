@@ -1,0 +1,13 @@
+Junior Data Engineer:
+- Python
+- APIs
+- SQL
+- NoSQL
+- Basic knowledge of Cloud (EC2, S3 etc.)
+- Data concepts
+- ETL
+- Git + GitHub
+- Expose to Databricks and/or Snowflake
+- Excel + reporting fundamentals
+- Agile and Scrum
+- AI Fundamentals (using AI responsibility to be more efficient)
