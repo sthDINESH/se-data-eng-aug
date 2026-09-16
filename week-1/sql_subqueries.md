@@ -55,3 +55,40 @@ WHERE salary > (
 **In short:**  
 `JOIN` → **combine data**  
 `Subquery` → **use a query's result**
+
+## FROM subqueries
+
+```sql
+SELECT AVG("Total Price") AS "Average Category Total"
+FROM (
+    SELECT product_category_id AS "Category ID",
+        SUM(price) AS "Total Price"
+    FROM product
+    GROUP BY product_category_id
+);
+```
+
+```sql
+SELECT name,
+    price,
+    available_stock,
+    price * available_stock / stock_value AS "CATEGORY VALUE PROPORTION"
+FROM product p
+JOIN (
+    SELECT product_category_id, SUM(price * available_stock) AS stock_value
+    FROM product
+    GROUP BY product_category_id
+) sv on p.product_category_id = sv.product_category_id;
+```
+
+## WHERE subqueries
+    - subquery should return a single column which can be used as list of values
+    
+```sql
+SELECT name
+FROM product
+WHERE product_id IN (
+    SELECT DISTINCT product_id
+    FROM order_product
+);
+```
